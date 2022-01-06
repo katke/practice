@@ -1,0 +1,12 @@
+package shared;
+
+public enum PracticeStatus {
+
+  IN_PROGRESS,
+  FAIL_IMPLEMENTATION,
+  FAIL_TIME_OPTIMIZATION,
+  FAIL_SPACE_OPTIMIZATION,
+  FAIL_OPTIMIZATION,
+  ACCEPTED;
+
+}
