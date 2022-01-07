@@ -4,8 +4,6 @@ import shared.PracticeProblem;
 import shared.PracticeStatus;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 public class FindDuplicateNumber implements PracticeProblem {
   String status = "https://leetcode.com/problems/find-the-duplicate-number/";
@@ -61,16 +59,4 @@ public class FindDuplicateNumber implements PracticeProblem {
 //    }
 //  }
 
-
-  public Map<String, List<int[]>> getTestCases() {
-    return Map.of(
-        "1. Expected 2", List.of(new int[] {1,3,4,2,2}),
-        "2. Expected 3", List.of(new int[] {3,1,3,4,2}),
-        "3. Expected 1", List.of(new int[] {1,1}),
-        "4. Expected 1", List.of(new int[] {1,1,2}),
-        "5. Expected 0", List.of(new int[] {}),
-        "6. Expected 3", List.of(new int[] {1,3,10,2,5,3,4,8,6,9,7}),
-        "7. Expected 10", List.of(new int[] {1,3,10,2,5,10,4,8,6,9,7})
-    );
-  }
 }

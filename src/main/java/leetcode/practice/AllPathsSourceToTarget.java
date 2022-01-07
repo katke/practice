@@ -5,7 +5,6 @@ import shared.PracticeStatus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AllPathsSourceToTarget implements PracticeProblem {
   String source = "https://leetcode.com/problems/all-paths-from-source-to-target/";
