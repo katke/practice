@@ -7,8 +7,6 @@ import shared.PracticeStatus;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.List;
-import java.util.Map;
 
 public class MaxWidthBinaryTree implements PracticeProblem {
   String source = "https://leetcode.com/problems/maximum-width-of-binary-tree/";
@@ -49,70 +47,5 @@ public class MaxWidthBinaryTree implements PracticeProblem {
 
   private int rightNodeIndex(int parentIndex) {
     return leftNodeIndex(parentIndex) + 1;
-  }
-
-  public Map<String, List<TreeNode>> getTestCases() {
-    return Map.of(
-        "1. Expect 8", List.of(outerNodesOnly()),
-        "2. Expect 4", List.of(mixOfInnerOuterNodes()),
-        "3. Expect 4", List.of(moreInnerNodes()),
-        "4. Expect 1", List.of(oneSidedTree()),
-        "5: Expect 1", List.of(singleNode()));
-  }
-
-  private TreeNode outerNodesOnly() {
-    TreeNode root = new TreeNode(1);
-    root.left = new TreeNode(3);
-    root.right = new TreeNode(2);
-
-    root.left.left = new TreeNode(5);
-    root.right.right = new TreeNode(9);
-
-    root.left.left.left = new TreeNode(6);
-    root.right.right.right = new TreeNode(7);
-    return root;
-  }
-
-  private TreeNode mixOfInnerOuterNodes() {
-    TreeNode root = new TreeNode(1);
-    root.left = new TreeNode(3);
-    root.right = new TreeNode(2);
-
-    root.left.left = new TreeNode(5);
-    root.left.right = new TreeNode(4);
-
-    root.right.right = new TreeNode(9);
-
-    return root;
-  }
-
-  private TreeNode moreInnerNodes() {
-    TreeNode root = new TreeNode(1);
-    root.left = new TreeNode(2);
-    root.left.right = new TreeNode(4);
-    root.left.right.left = new TreeNode(7);
-    root.left.right.right = new TreeNode(8);
-
-    root.right = new TreeNode(3);
-    root.right.right = new TreeNode(6);
-//    root.right.right.right = new TreeNode(11);
-    root.right.left = new TreeNode(5);
-    root.right.left.left = new TreeNode(9);
-    root.right.left.right = new TreeNode(10);
-
-    return root;
-  }
-
-  private TreeNode oneSidedTree() {
-    TreeNode root = new TreeNode(1);
-    root.left = new TreeNode(2);
-    root.left.left = new TreeNode(3);
-    root.left.left.left = new TreeNode(4);
-    root.left.left.left.left = new TreeNode(5);
-    return root;
-  }
-
-  private TreeNode singleNode() {
-    return new TreeNode(1);
   }
 }
