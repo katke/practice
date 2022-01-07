@@ -4,7 +4,6 @@ import shared.PracticeProblem;
 import shared.PracticeStatus;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LongestSubstringTwoChars implements PracticeProblem {
@@ -53,16 +52,4 @@ public class LongestSubstringTwoChars implements PracticeProblem {
     }
   }
 
-  public Map<String, List<String>> getTestCases() {
-    return Map.of(
-        "1. Expected 3", List.of("eceba"),
-        "2. Expected 5", List.of("ccaabbb"),
-        "3. Expected 0", List.of(""),
-        "4. Expected 13", List.of("bbbbbbbbbbbbb"),
-        "5. Expected 9", List.of("cccccccCcabbbbbbBbb"),
-        "6. Expected 18", List.of("yyyyyyyyywyyyyyyyyalksdjfaaaaaaaa"),
-        "7. Expected 1", List.of("y"),
-        "8. Expected 7", List.of("yyyyaaab")
-    );
-  }
 }
