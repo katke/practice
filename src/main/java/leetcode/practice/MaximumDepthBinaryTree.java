@@ -54,7 +54,6 @@ public class MaximumDepthBinaryTree implements PracticeProblem {
     return Math.max(leftRecursive, rightRecursive) + 1;
   }
 
-  @Override
   public Map<String, TreeNode> getTestCases() {
     return Map.of(
         "1. Expected 3", lcTestCase1(),

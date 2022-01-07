@@ -53,7 +53,6 @@ public class MedianTwoSortedArrays implements PracticeProblem {
       }
     }
 
-  @Override
   public Map<String, List<int[]>> getTestCases() {
     return Map.of(
         "1. Expected: 2.0", List.of(new int[]{1,3}, new int[]{2}),

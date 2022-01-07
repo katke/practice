@@ -53,7 +53,6 @@ public class LongestSubstringTwoChars implements PracticeProblem {
     }
   }
 
-  @Override
   public Map<String, List<String>> getTestCases() {
     return Map.of(
         "1. Expected 3", List.of("eceba"),

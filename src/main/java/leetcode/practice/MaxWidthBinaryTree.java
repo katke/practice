@@ -51,7 +51,6 @@ public class MaxWidthBinaryTree implements PracticeProblem {
     return leftNodeIndex(parentIndex) + 1;
   }
 
-  @Override
   public Map<String, List<TreeNode>> getTestCases() {
     return Map.of(
         "1. Expect 8", List.of(outerNodesOnly()),

@@ -59,7 +59,6 @@ public class MergeTwoSortedArrays implements PracticeProblem {
     return mergedRoot;
   }
 
-  @Override
   public Map<String, List<ListNode>> getTestCases() {
     return Map.of(
         "1. Expected: [1,1,2,3,4,4]", setupTestCase1(),

@@ -74,7 +74,6 @@ public class MinimumSubstring implements PracticeProblem {
     return tList;
   }
 
-  @Override
   public Map<String, List<String>> getTestCases() {
     return Map.of(
         "Expected: BANC", List.of("ADOBECODEBANC", "ABC"),
