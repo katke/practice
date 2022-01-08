@@ -1,12 +1,14 @@
 package educative.javadatastructures;
 
-import java.util.Arrays;
+import shared.PracticeStatus;
 
 public class MergeTwoSortedArrays {
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String source = "https://www.educative.io/courses/data-structures-coding-interviews-java/xV2WB4rl0lq";
+  String timeComplexity = "O(n + m) where n=arr1 length and m=arr2 length";
+  String spaceComplexity = "O(n + m)";
 
   int[] mergeArrays(int[] arr1, int[] arr2) {
-    System.out.println(Arrays.toString(arr1));
-    System.out.println(Arrays.toString(arr2));
     if (arr1 == null && arr2 == null) {
       return new int[]{};
     } else if (arr1 == null) {
