@@ -5,11 +5,11 @@ import shared.PracticeStatus;
 import java.util.Arrays;
 
 public class TwoElementsThatEqualN {
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
   String source = "https://www.educative.io/courses/data-structures-coding-interviews-java/xVl0WZ09nY9";
   String description = "Given an array and a number \"n\", find two numbers from the array that sums up to \"n\"." +
       "Return the original array in case a pair is not found.";
-  String timeComplexity = "Brute force: O(n^2)";
+  String timeComplexity = "Brute force: O(n^2) / O(n * log(n) for optimized";
   String spaceComplexity;
 
   int[] findSumOptimized(int[] arr, int n) {
@@ -41,7 +41,7 @@ public class TwoElementsThatEqualN {
     return foundPair ? additionPair : arr;
   }
 
-  int[] findSumBruteForce(int[] arr, int n) {
+    int[] findSumBruteForce(int[] arr, int n) {
     if (arr == null) return new int[]{};
     else if (arr.length < 2) return arr;
 
