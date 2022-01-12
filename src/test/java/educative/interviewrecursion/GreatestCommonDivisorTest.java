@@ -22,7 +22,9 @@ public class GreatestCommonDivisorTest {
   static Stream<Arguments> getTestCases() {
     return Stream.of(
         arguments(36, 54, 18),
-        arguments(0, 12, -1)
+        arguments(0, 12, 0),
+        arguments(24, 18, 6),
+        arguments(13, 23, 1)
     );
   }
 
