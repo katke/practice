@@ -9,6 +9,7 @@ public class IsPrimeNumber {
   PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
 
   boolean solution(int num) {
+    if (num < 2) return false;
     if (num != 2 && num % 2 == 0) return false;
     return isPrime((int) Math.sqrt(num), num);
   }
