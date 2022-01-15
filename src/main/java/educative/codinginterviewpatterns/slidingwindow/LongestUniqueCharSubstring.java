@@ -9,7 +9,7 @@ public class LongestUniqueCharSubstring {
   PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
   String source = "https://www.educative.io/courses/grokking-the-coding-interview/YMzBx1gE5EO";
   String timeComplexity = "O(n)";
-  String spaceComplexity = "O(n)";
+  String spaceComplexity = "O(n) [or O(1) since possible number of characters as key is finite]";
   /*
   * Given a string, find the length of the longest substring, which has all distinct characters.
   * Ex aabccbb => 3, "abc"

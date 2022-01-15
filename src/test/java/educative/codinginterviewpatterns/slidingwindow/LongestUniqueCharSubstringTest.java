@@ -27,7 +27,8 @@ public class LongestUniqueCharSubstringTest {
         arguments("abcdefgh", 8),
         arguments("", 0),
         arguments("aabcdefgh", 8),
-        arguments("abcdefghh", 8)
+        arguments("abcdefghh", 8),
+        arguments("aAbBcCdD", 8)
     );
   }
 }
