@@ -1,7 +1,12 @@
 package educative.codinginterviewpatterns.twopointers;
 
+import shared.PracticeStatus;
+
 public class ArrayPairSumEqualsTarget {
   String source = "https://www.educative.io/courses/grokking-the-coding-interview/xog6q15W9GP";
+  String timeComplexity = "O(N)";
+  String spaceComplexity = "O(1)";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
 
   /*
   * Given an array of sorted numbers and a target sum, find a pair in the array whose sum is equal to the given target.
