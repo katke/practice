@@ -33,6 +33,13 @@ public class Search2DMatrixTest {
     assertEquals(expected, actual);
   }
 
+  @ParameterizedTest(name = "{index} Most optimized, input {0}, target {1}")
+  @MethodSource("testCases")
+  void testMostOptimizedSolution(int[][] matrix, int target, boolean expected) {
+    var actual = search2DMatrix.mostOptimizedSolution(matrix, target);
+    assertEquals(expected, actual);
+  }
+
   static Stream<Arguments> testCases() {
     return Stream.of(
         arguments(lcTestCase1(), 3, true),

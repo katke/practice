@@ -59,20 +59,29 @@ public class Search2DMatrix implements PracticeProblem {
   }
 
   // Time complexity: O(log(n*m)), binary search both col and rows
-  // Space complexity: O(1)
+  // Space complexity: O(logm + logn)
   boolean mostOptimizedSolution(int[][] matrix, int target) {
     if (matrix == null || matrix.length == 0) return false;
-    int numRows = matrix.length;
-    int numColumns = matrix[0].length;
-    int midpoint = numRows / 2;
-    if (matrix[midpoint][0] > target) {
-
-    }
-    return false;
+    var relevantRow = matrixBinarySearch(matrix, target);
+    return binarySearch(relevantRow, target);
   }
 
 
-  boolean binarySearch(int[] arr, int target) {
+  private int[] matrixBinarySearch(int[][] arr, int target) {
+    if (arr.length == 1) {
+      return arr[0];
+    }
+    var midpoint = arr.length / 2;
+    var midpointArr = arr[midpoint];
+    if (target > midpointArr[midpointArr.length - 1]) {
+        return matrixBinarySearch(Arrays.copyOfRange(arr, midpoint + 1, arr.length), target);
+    } else {
+      return matrixBinarySearch(Arrays.copyOfRange(arr, 0, midpoint), target);
+    }
+  }
+
+
+  private boolean binarySearch(int[] arr, int target) {
     if (arr.length == 1) {
       return arr[0] == target;
     }
