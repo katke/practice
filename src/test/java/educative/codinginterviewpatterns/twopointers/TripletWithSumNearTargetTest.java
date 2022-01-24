@@ -25,7 +25,8 @@ public class TripletWithSumNearTargetTest {
         arguments(new int[] {-3, -1, 1, 2}, 1, 0),
         arguments(new int[]  {1, 0, 1, 1}, 100, 3),
         arguments(new int[]  {-2, 10, 4, 6, -1}, 12, 12),
-        arguments(new int[]  {-2, 20, -10, 4, -1, 60}, 100, 84)
+        arguments(new int[]  {-2, 20, -10, 4, -1, 60}, 100, 84),
+        arguments(new int[]  {-2, 20, -10, 4, -1, 60}, -5, -7)
     );
   }
 }
