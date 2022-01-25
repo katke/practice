@@ -29,9 +29,13 @@ public class TripletSumLessThanTarget {
   }
 
   int findTriplets(int[] arr, int targetSum, int startingIndex) {
+    // target sum here is diff between starting index item and the original target number, which translates to
+    // the maximum sum that the other two items in the triplet can be while still ensuring the full triplet
+    // will be below the original target number (maximum exclusive, the other two items summed must be less)
     int left = startingIndex + 1, right = arr.length - 1, matches = 0;
     while (left < right) {
       System.out.println("Current nums: " + arr[startingIndex] + ", " + arr[left] + ", " + arr[right]);
+      System.out.println("targetSum: " + targetSum);
       if (arr[left] + arr[right] < targetSum) {
         System.out.println("adding " + (right - left) + ", incrementing left");
         matches += (right - left);
