@@ -9,15 +9,9 @@ public class ListNode {
      public ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 
      public String toStringRepresentation() {
-          var strBuilder = new StringBuilder();
-          strBuilder.append(this.val);
-          var nextNode = this.next;
-          while (nextNode != null) {
-               strBuilder
-                   .append(" -> ")
-                   .append(nextNode.val);
-               nextNode = nextNode.next;
-          }
-          return strBuilder.toString();
+          String template = "Node with value %d%s";
+          return String.format(template,
+              this.val,
+              this.next == null ? ", points to: null node" : "");
      }
 }
