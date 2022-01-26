@@ -5,7 +5,7 @@ import shared.PracticeStatus;
 
 public class SingleLinkedListHasCycle {
   String source = "https://www.educative.io/courses/grokking-the-coding-interview/N7rwVyAZl6D";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
   String timeComplexity = "O(n) where n = total number of nodes in linked list";
   String spaceComplexity = "O(1)";
   /*
