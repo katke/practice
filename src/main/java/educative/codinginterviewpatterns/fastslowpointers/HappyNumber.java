@@ -6,9 +6,10 @@ import java.util.*;
 
 public class HappyNumber {
   String source = "https://www.educative.io/courses/grokking-the-coding-interview/39q3ZWq27jM";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "apparently N1 < 81 * log(N+1) => N1 => O(logN)"; // uhh okeydokey
+  String spaceComplexity = "O(1) [trickier with recursive sum approach, but still there are a finite " +
+      "number of digits we can have per int, which would determine how many calls are put in the call stack]";
   Map<Integer, Integer> squaresSumMemo = new HashMap<>();
   /*
   * Any number will be called a happy number if, after repeatedly replacing
