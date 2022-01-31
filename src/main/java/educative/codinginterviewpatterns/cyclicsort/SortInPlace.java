@@ -1,9 +1,14 @@
 package educative.codinginterviewpatterns.cyclicsort;
 
+import shared.PracticeStatus;
+
 import java.util.Arrays;
 
 public class SortInPlace {
   String source = "https://www.educative.io/courses/grokking-the-coding-interview/B8qXVqVwDKY";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(n)";
+  String spaceComplexity = "O(1)";
 
   /*
   * We are given an array containing n objects. Each object, when created, was assigned a unique number
@@ -27,7 +32,6 @@ public class SortInPlace {
       int swappedNumTmp = nums[correctIndex];
       nums[correctIndex] = currentNumber;
       nums[i] = swappedNumTmp;
-      System.out.println(Arrays.toString(nums));
     }
   }
 }
