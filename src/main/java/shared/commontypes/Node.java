@@ -1,4 +1,4 @@
-package leetcode.commontypes;
+package shared.commontypes;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

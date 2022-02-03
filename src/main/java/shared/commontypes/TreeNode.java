@@ -1,4 +1,4 @@
-package leetcode.commontypes;
+package shared.commontypes;
 
 // As defined/expected by LeetCode
 public class TreeNode {

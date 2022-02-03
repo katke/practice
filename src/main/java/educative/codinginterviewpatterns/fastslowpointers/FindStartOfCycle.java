@@ -1,6 +1,6 @@
 package educative.codinginterviewpatterns.fastslowpointers;
 
-import leetcode.commontypes.ListNode;
+import shared.commontypes.ListNode;
 import shared.PracticeStatus;
 
 import java.util.ArrayList;

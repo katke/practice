@@ -1,6 +1,6 @@
 package educative.codinginterviewpatterns.inplacereversal;
 
-import leetcode.commontypes.ListNode;
+import shared.commontypes.ListNode;
 import shared.PracticeStatus;
 
 public class ReverseSubList {

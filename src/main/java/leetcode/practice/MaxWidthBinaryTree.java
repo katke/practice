@@ -1,7 +1,7 @@
 package leetcode.practice;
 
-import leetcode.commontypes.NodeIndexTuple;
-import leetcode.commontypes.TreeNode;
+import shared.commontypes.NodeIndexTuple;
+import shared.commontypes.TreeNode;
 import shared.PracticeProblem;
 import shared.PracticeStatus;
 

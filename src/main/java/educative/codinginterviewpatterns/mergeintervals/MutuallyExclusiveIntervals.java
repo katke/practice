@@ -1,6 +1,6 @@
 package educative.codinginterviewpatterns.mergeintervals;
 
-import leetcode.commontypes.Interval;
+import shared.commontypes.Interval;
 import shared.PracticeStatus;
 
 import java.util.ArrayList;

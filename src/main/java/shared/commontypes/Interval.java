@@ -1,4 +1,4 @@
-package leetcode.commontypes;
+package shared.commontypes;
 
 public class Interval {
   public int start;

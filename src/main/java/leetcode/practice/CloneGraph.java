@@ -1,6 +1,6 @@
 package leetcode.practice;
 
-import leetcode.commontypes.Node;
+import shared.commontypes.Node;
 import shared.PracticeProblem;
 import shared.PracticeStatus;
 

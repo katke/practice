@@ -1,6 +1,6 @@
 package leetcode.practice;
 
-import leetcode.commontypes.ListNode;
+import shared.commontypes.ListNode;
 import shared.PracticeProblem;
 import shared.PracticeStatus;
 import static shared.PracticeStatus.ACCEPTED;
