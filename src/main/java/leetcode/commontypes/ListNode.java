@@ -11,10 +11,10 @@ public class ListNode {
      public ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 
      public String toStringRepresentation() {
-          String template = "Node with value %d%s";
+          String template = "Node with value %d --> %s";
           return String.format(template,
               this.val,
-              this.next == null ? ", --> null" : "");
+              this.next == null ? "null" : this.next.val);
      }
 
      public String toStringAllFollowingNodes() {

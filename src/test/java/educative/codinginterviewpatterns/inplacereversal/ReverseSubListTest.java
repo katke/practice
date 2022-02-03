@@ -37,7 +37,8 @@ public class ReverseSubListTest {
   static Stream<Arguments> testCases() {
     return Stream.of(
         testCase1(),
-        testCase2()
+        testCase2(),
+        testCase3()
     );
   }
 
@@ -94,5 +95,29 @@ public class ReverseSubListTest {
 
 
     return arguments(node1, 1, 4, expNode4);
+  }
+
+  private static Arguments testCase3() {
+    //  1 -> 2 -> 3 -> 4 -> null
+    var node1 = new ListNode(1);
+    var node2 = new ListNode(2);
+    var node3 = new ListNode(3);
+    var node4 = new ListNode(4);
+
+    node1.next = node2;
+    node2.next = node3;
+    node3.next = node4;
+
+    var expNode1 = new ListNode(1);
+    var expNode2 = new ListNode(2);
+    var expNode3 = new ListNode(3);
+    var expNode4 = new ListNode(4);
+
+    expNode1.next = expNode3;
+    expNode3.next = expNode2;
+    expNode2.next = expNode4;
+
+
+    return arguments(node1, 2, 3, expNode1);
   }
 }
