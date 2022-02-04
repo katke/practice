@@ -18,5 +18,14 @@ public class TreeNode {
     this.left = left;
     this.right = right;
   }
+
+  public String toString() {
+    return String.format(
+        "Node %s, left: %s, right: %s",
+        this.val,
+        this.left != null ? this.left.val : "null",
+        this.right != null ? this.right.val : "null"
+        );
+  }
 }
 
