@@ -40,4 +40,28 @@ public class TreeLevelSubarrays {
     return result;
   }
 
+  List<List<Integer>> reverseOrderSolution(TreeNode root) {
+    if (root == null) throw new IllegalArgumentException("Tree root cannot be null");
+    Deque<TreeNode> nodes = new ArrayDeque<>();
+    nodes.add(root);
+    TreeNode current;
+    Deque<List<Integer>> result = new ArrayDeque<>();
+    while (!nodes.isEmpty()) {
+      var rowSize = nodes.size();
+      var row = new ArrayList<Integer>();
+      for (int i = 0; i < rowSize; i++) {
+        current = nodes.removeFirst();
+        row.add(current.val);
+        if (current.left != null) {
+          nodes.addLast(current.left);
+        }
+        if (current.right != null) {
+          nodes.addLast(current.right);
+        }
+      }
+      result.addFirst(row);
+    }
+    return new ArrayList<>(result);
+  }
+
 }
