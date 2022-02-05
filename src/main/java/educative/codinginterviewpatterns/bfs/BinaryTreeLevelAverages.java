@@ -1,5 +1,6 @@
 package educative.codinginterviewpatterns.bfs;
 
+import shared.PracticeStatus;
 import shared.commontypes.TreeNode;
 
 import java.util.ArrayDeque;
@@ -9,6 +10,9 @@ import java.util.List;
 
 public class BinaryTreeLevelAverages {
   String source = "https://www.educative.io/courses/grokking-the-coding-interview/YQWkA2l67GW";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(n)";
+  String spaceComplexity = "O(w), w = max width of any rows, O(n) in the worst case";
 
   /*
   * Given a binary tree, populate an array to represent the averages of all of its levels.
