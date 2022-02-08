@@ -13,10 +13,17 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 public class TreePathEqualToSumTest {
   TreePathEqualToSum treePathEqualToSum = new TreePathEqualToSum();
 
-  @ParameterizedTest
+  @ParameterizedTest(name = "Recursive solution: {index}")
   @MethodSource("testCases")
-  void testSolution(TreeNode root, int sum, boolean expected) {
+  void testRecursiveSolution(TreeNode root, int sum, boolean expected) {
     var actual = treePathEqualToSum.solution(root, sum);
+    assertEquals(expected, actual);
+  }
+
+  @ParameterizedTest(name = "Iterative solution: {index}")
+  @MethodSource("testCases")
+  void testIterativeSolution(TreeNode root, int sum, boolean expected) {
+    var actual = treePathEqualToSum.iterativeSolution(root, sum);
     assertEquals(expected, actual);
   }
 
