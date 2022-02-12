@@ -26,6 +26,7 @@ public class DistinctSubsetsTest {
   void assertListEquals(List<List<Integer>> expected, List<List<Integer>> actual) {
     assertEquals(expected.size(), actual.size());
     for (List<Integer> expectedSubset : expected) {
+      System.out.println("expectedSubset: " + expectedSubset);
       assertTrue(actual.contains(expectedSubset));
     }
   }
@@ -34,8 +35,8 @@ public class DistinctSubsetsTest {
     return Stream.of(
         arguments(new int[]{1, 3, 3}, List.of(List.of(), List.of(1), List.of(3), List.of(1,3), List.of(3,3), List.of(1,3,3))),
         arguments(new int[]{1, 5, 3, 3}, List.of(
-            List.of(), List.of(1), List.of(5), List.of(3), List.of(1,5), List.of(1,3), List.of(5,3), List.of(1,5,3),
-            List.of(3,3), List.of(1,3,3), List.of(5,3,3), List.of(1,5,3,3)))
+            List.of(), List.of(1), List.of(5), List.of(3), List.of(1,5), List.of(1,3), List.of(3,5), List.of(1,3,5),
+            List.of(3,3), List.of(1,3,3), List.of(3,3,5), List.of(1,3,3,5)))
     );
   }
 }
