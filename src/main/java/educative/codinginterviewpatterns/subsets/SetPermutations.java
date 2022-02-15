@@ -34,7 +34,6 @@ public class SetPermutations {
         }
       }
     }
-    System.out.println(result);
     return result;
   }
 
