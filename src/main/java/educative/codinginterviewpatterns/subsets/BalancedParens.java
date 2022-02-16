@@ -6,9 +6,9 @@ import java.util.*;
 
 public class BalancedParens {
   String source = "https://www.educative.io/courses/grokking-the-coding-interview/NEXBg8YA5A2";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(n * 2^n), 2^n number of possible combinations, n for each time copying and regenerating string with new ) or (";
+  String spaceComplexity = "O(n * 2^n)";
   /*
   * For a given number ‘N’, write a function to generate all combination of ‘N’ pairs of balanced parentheses.
   * Input: N=2
@@ -76,7 +76,7 @@ public class BalancedParens {
 
     public String toString() {
       return String.format("String: %s, openCount: %s, closeCount: %s",
-          this.str.toString(),
+          this.str,
           this.openCount,
           this.closeCount);
     }
