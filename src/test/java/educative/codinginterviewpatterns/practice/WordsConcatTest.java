@@ -10,14 +10,14 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class StringAnagramsTest {
-  StringAnagrams stringAnagrams = new StringAnagrams();
+public class WordsConcatTest {
+  WordsConcat wordsConcat = new WordsConcat();
   CustomAsserts customAsserts = new CustomAsserts();
 
   @ParameterizedTest
   @MethodSource("testCases")
-  void testSolution(String str, String pattern, List<Integer> expected) {
-    var actual = stringAnagrams.solution(str, pattern);
+  void testSolution(String str, String[] words, List<Integer> expected) {
+    var actual = wordsConcat.solution(str, words);
     System.out.println("expected: " + expected);
     System.out.println("actual: " + actual);
     customAsserts.assertListEquals(expected, actual);
@@ -25,8 +25,8 @@ public class StringAnagramsTest {
 
   static Stream<Arguments> testCases() {
     return Stream.of(
-        arguments("ppqp", "pq", List.of(1, 2)),
-        arguments("abbcabc", "abc", List.of(2, 3, 4))
+        arguments("catfoxcat", new String[]{"cat", "fox"}, List.of(0, 3)),
+        arguments("catcatfoxfox", new String[]{"cat", "fox"}, List.of(3))
     );
   }
 }

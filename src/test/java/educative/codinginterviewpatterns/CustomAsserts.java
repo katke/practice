@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CustomAsserts {
 
-  public void assertListEquals(List<String> expected, List<String> actual) {
+  public void assertListEquals(List<?> expected, List<?> actual) {
     assertEquals(expected.size(), actual.size());
-    for (String expectedValue : expected) {
+    for (Object expectedValue : expected) {
       System.out.println("expected: " + expectedValue);
       assertTrue(actual.contains(expectedValue));
     }
