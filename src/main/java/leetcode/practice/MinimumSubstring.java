@@ -3,85 +3,81 @@ package leetcode.practice;
 import shared.PracticeProblem;
 import shared.PracticeStatus;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MinimumSubstring implements PracticeProblem {
-  PracticeStatus practiceStatus = PracticeStatus.FAIL_TIME_OPTIMIZATION;
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
   String source = "https://leetcode.com/problems/minimum-window-substring/";
+  String timeComplexity = "O(t + (s * t))";
+  String spaceComplexity = "O(t)";
+
+  /*
+  * Given two strings s and t of lengths m and n respectively, return the minimum window substring
+  * of s such that every character in t (including duplicates) is included in the window. If there is
+  * no such substring, return the empty string "".
+  *
+  * The testcases will be generated such that the answer is unique.
+  *
+  * A substring is a contiguous sequence of characters within the string.
+  * Example:
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+  * */
 
   public String solution(String s, String t) {
-    if (s == null || t == null) return "";
-    if (s.length() < t.length()
-        || s.length() == 0
-        || t.length() == 0) return "";
-    if (s.equals(t)) return s;
-
-    var l = 0;
-    var r = t.length();
-    var result = "";
-
-    while (r <= s.length()) {
-      var currentWindowDesirable = allCharsAccountedFor(t, s, l, r);
-      if (!currentWindowDesirable) {
-        r++;
+    if ((s == null || s.length() == 0) || (t == null || t.length() == 0)) return "";
+    else if (t.length() > s.length()) return "";
+    Map<Character, Integer> currentCharFreq = new HashMap<>();
+    final Map<Character, Integer> tCharLimits = new HashMap<>();
+    for (int i = 0; i < t.length(); i++) {
+      tCharLimits.compute(t.charAt(i), (key, val) -> val == null ? 1 : val + 1);
+    }
+    int left = 0, right = -1, minWindowLength = Integer.MAX_VALUE;
+    String minWindow = "";
+    while (left < s.length() - t.length() + 1) {
+      if (right < s.length() - 1) {
+        right++;
+        updateMap(false, s.charAt(right), currentCharFreq, tCharLimits);
       } else {
-        if (r - l < result.length() || result.length() == 0) {
-          result = s.substring(l, r);
+        updateMap(true, s.charAt(left), currentCharFreq, tCharLimits);
+        left++;
+      }
+      while (allCharsAccountedFor(currentCharFreq, tCharLimits)) {
+        if (right - left + 1 < minWindowLength) {
+          minWindow = s.substring(left, right + 1);
+          minWindowLength = minWindow.length();
         }
-        l++;
+        updateMap(true, s.charAt(left), currentCharFreq, tCharLimits);
+        left++;
       }
     }
-    return result;
+    return minWindow;
   }
 
-  private boolean allCharsAccountedFor(String t, String s, int left, int right) {
-    var tList = setTList(t);
-    var window = s.substring(left, right);
-    for (var i = 0; i < window.length(); i++) {
-      Character character = window.charAt(i);
-      tList.remove(character);
-      if (tList.isEmpty()) break;
+  void updateMap(boolean remove, char key, Map<Character, Integer> charFreq, final Map<Character, Integer> tLimits) {
+    var currFrequency = charFreq.getOrDefault(key, 0);
+    if (remove) {
+      if (currFrequency == 1) {
+        charFreq.remove(key);
+      } else if (currFrequency > 1) {
+        charFreq.put(key, currFrequency - 1);
+      }
+    } else {
+      if (tLimits.containsKey(key)) {
+        charFreq.put(key, currFrequency + 1);
+      }
     }
-    return tList.isEmpty();
   }
 
-  private boolean allCharsAccountedFor(Map<Character, Integer> tMap) {
-    var remaining = tMap
-        .values()
-        .stream()
-        .reduce(0, (subtotal, next) -> subtotal + next);
-    return remaining == 0;
-  }
-
-  private Map<Character, Integer> setTMap(String t) {
-    Map<Character, Integer> tMap = new HashMap<>();
-    for (var i = 0; i < t.length(); i++) {
-      var charKey = t.charAt(i);
-      tMap.compute(charKey, (k, v) -> v == null ? 1 : v + 1);
+  boolean allCharsAccountedFor(Map<Character, Integer> charFreq, final Map<Character, Integer> tLimits) {
+    for (Character c : tLimits.keySet()) {
+      if (charFreq.getOrDefault(c, 0) < tLimits.get(c)) {
+        return false;
+      }
     }
-    return tMap;
+    return true;
   }
 
-  private List<Character> setTList(String t) {
-    List<Character> tList = new ArrayList<>();
-    for (var i = 0; i < t.length(); i++) {
-      var currentChar = t.charAt(i);
-      tList.add(currentChar);
-    }
-    return tList;
-  }
-
-  public Map<String, List<String>> getTestCases() {
-    return Map.of(
-        "Expected: BANC", List.of("ADOBECODEBANC", "ABC"),
-        "Expected: \"\"", List.of("ABC", "ABCD"),
-        "Expected: \" \"", List.of("a", "b"),
-        "Expected: a", List.of("a", "a"),
-        "Expected: bCBA", List.of("ABCODEBaNbCBA", "AbC"),
-        "Expected: HEr", List.of("talkeHandHErRzJrARRHNDeoRRRRzalkje", "Hr")
-    );
-  }
 }
