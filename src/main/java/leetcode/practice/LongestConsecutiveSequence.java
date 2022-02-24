@@ -7,7 +7,9 @@ import java.util.Set;
 
 public class LongestConsecutiveSequence {
   String source = "https://leetcode.com/problems/longest-consecutive-sequence/";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(n)"; // hashset.contains(x) is O(1) time complexity
+  String spaceComplexity = "O(n)";
   /*
   *
   * Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
@@ -36,4 +38,5 @@ public class LongestConsecutiveSequence {
     }
     return maxCount;
   }
+
 }
