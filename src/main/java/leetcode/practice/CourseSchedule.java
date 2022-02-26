@@ -2,84 +2,66 @@ package leetcode.practice;
 
 import shared.PracticeStatus;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class CourseSchedule {
-  String source = "https://leetcode.com/problems/course-schedule-ii/";
+  String source = "https://leetcode.com/problems/course-schedule/";
   PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
   String timeComplexity = "";
   String spaceComplexity = "";
 
-  /*
-  * There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1.
-  * You are given an array prerequisites where prerequisites[i] = [a, b] indicates that you must take
-  * course b first if you want to take course a.
+/*
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1.
+You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must
+take course bi first if you want to take course ai.
 
-  * For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
-  * Return the ordering of courses you should take to finish all courses. If there are many valid
-  * answers, return any of them. If it is impossible to finish all courses, return an empty array.
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.
 
-  Input: numCourses = 2, prerequisites = [[1,0]]
-  Output: [0,1]
-  * Explanation: There are a total of 2 courses to take. To take course 1 you should have finished
-  * course 0. So the correct course order is [0,1].
-  *
-  * 0: [n,n,2],
-  * 1: [0,n,2],
-  * 2: [0,1,n]
-  * */
+Example 1:
 
-  int[] solution(int numCourses, int[][] prerequisites) {
-    if (prerequisites == null || prerequisites.length == 0) return new int[]{};
-    Map<Integer, List<Integer>> courses = new HashMap<>();
-    List<List<Integer>> result = new ArrayList<>();
-    for (int[] pair : prerequisites) {
-      int courseId = pair[0];
-      int prereq = pair[1];
-      List<Integer> currentPrereqs = courses.getOrDefault(courseId, new ArrayList<>());
-      currentPrereqs.add(prereq);
-      courses.put(courseId, currentPrereqs);
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take.
+To take course 1 you should have finished course 0. So it is possible.
+*/
+
+  boolean canFinish(int numCourses, int[][] prerequisites) {
+    if (numCourses < 1 || prerequisites == null || prerequisites.length == 0) return true;
+    Map<Integer, Set<Integer>> courses = new HashMap<>();
+    for (int[] prereq : prerequisites) {
+      int courseId = prereq[0];
+      int prereqId = prereq[1];
+      courses.compute(courseId, (key, val) -> {
+        if (val == null) {
+          var newPrereqSet = new HashSet<Integer>();
+          newPrereqSet.add(prereqId);
+          return newPrereqSet;
+        } else {
+          val.add(prereqId);
+          return val;
+        }
+      });
     }
-    System.out.println(courses);
-    findCourseProgression(new ArrayList<>(), result, prerequisites[0][0], courses, new ArrayList<>(), numCourses);
-    return result.isEmpty()
-      ? new int[]{}
-      : result.get(0).stream().mapToInt(Integer::intValue).toArray();
+    return prereqsAreNotCyclic(new HashSet<>(), courses, prerequisites[0][0], numCourses, 0);
   }
 
-  void findCourseProgression(List<Integer> courseOrder, List<List<Integer>> results, int courseId,
-                             Map<Integer, List<Integer>> courses, List<Integer> alreadySeen, int numCourses) {
-    System.out.println("-".repeat(15));
-    // if next progression is null (end of prereq chain) or equal to numCourses + 1 (checked all possible courses)
-    // add to result (along with any unaccounted for classes) and return
-    // if the node is present in alreadyVisited (is a cycle), don't add to result and return
-    // else loop through the prereqs and start new findCourseProgression call for each
-    // add to alreadyVisited list
-    System.out.println("findCourseProgression(): courseId " + courseId);
-    System.out.println("alreadySeen: " + alreadySeen);
-    if (!courses.containsKey(courseId)) {
-      courseOrder.add(0, courseId);
-      if (courseOrder.size() < numCourses) {
-        for (int i = 0; i < numCourses; i++) {
-          if (!courseOrder.contains(i)) {
-            courseOrder.add(i);
-          }
-        }
-        System.out.println("courseOrder: " + courseOrder);
-        results.add(courseOrder);
-      }
-    } else if (alreadySeen.contains(courseId)) {
-      // found a cycle
-      System.out.println("cycle—courseOrder: " + courseOrder);
-      return;
+  private boolean prereqsAreNotCyclic(Set<Integer> visited, final Map<Integer, Set<Integer>> courses, int courseId, int maxNumOfCourses, int coursesSoFar) {
+    if (coursesSoFar > maxNumOfCourses) {
+      return false;
+    } else if (!courses.containsKey(courseId)) {
+      return true;
     } else {
-      alreadySeen.add(courseId);
-      System.out.println("courseOrder: " + courseOrder);
-      for (Integer prereq : courses.get(courseId)) {
-        findCourseProgression(
-            new ArrayList<>(courseOrder),
-            results, prereq, courses, alreadySeen, numCourses);
+      visited.add(courseId);
+      for (int prereq : courses.get(courseId)) {
+        if (!visited.contains(prereq)) {
+          return prereqsAreNotCyclic(new HashSet<>(visited), courses, prereq, maxNumOfCourses, coursesSoFar + 1);
+        }
       }
+      return false;
     }
   }
 }
