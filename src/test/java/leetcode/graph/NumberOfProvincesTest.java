@@ -15,13 +15,20 @@ public class NumberOfProvincesTest {
   @ParameterizedTest
   @MethodSource("testCases")
   void testSolution(int[][] input, int expected) {
-    assertEquals(expected, numberOfProvinces.findCircleNumBFS(input));
+    assertEquals(expected, numberOfProvinces.findNumProvincesBFS(input));
   }
 
   static Stream<Arguments> testCases() {
     return Stream.of(
         arguments(new int[][]{new int[]{1, 1, 0}, new int[]{1, 1, 0}, new int[]{0, 0, 1}}, 2),
-        arguments(new int[][]{new int[]{1, 0, 0}, new int[]{0, 1, 0}, new int[]{0, 0, 1}}, 3)
+        arguments(new int[][]{new int[]{1, 0, 0}, new int[]{0, 1, 0}, new int[]{0, 0, 1}}, 3),
+        arguments(new int[][]{
+            new int[]{1, 1, 0, 0, 0, 0},
+            new int[]{1, 1, 0, 0, 0, 0},
+            new int[]{0, 0, 1, 1, 1, 0},
+            new int[]{0, 0, 1, 1, 0, 0},
+            new int[]{0, 0, 1, 0, 1, 0},
+            new int[]{0, 0, 0, 0, 0, 1}}, 3)
     );
   }
 }

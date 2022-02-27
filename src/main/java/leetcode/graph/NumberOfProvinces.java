@@ -1,43 +1,39 @@
 package leetcode.graph;
 
-import javax.sound.midi.SysexMessage;
 import java.util.*;
 
 public class NumberOfProvinces {
   String source = "https://leetcode.com/explore/learn/card/graph/618/disjoint-set/3845/ (union-find) or https://leetcode.com/problems/number-of-provinces/solution/";
 
-  public int findCircleNumBFS(int[][] isConnected) {
+  int findNumProvincesBFS(int[][] isConnected) {
     if (isConnected == null || isConnected.length == 0 || isConnected[0].length == 0) return 0;
-    Set<Integer> visited = new HashSet<>();
     int count = 0;
     Deque<Integer> queue = new ArrayDeque<>();
-    for (int i = 0; i < isConnected.length; i++) { // i = one node's adj matrix
-      System.out.println("Visited: " + visited);
-      System.out.println("i: " + i);
+    Set<Integer> visited = new HashSet<>();
+    for (int i = 0; i < isConnected.length; i++) {
+      // Outer loop will not necessarily do anything with each i val, since we may check some of those
+      // future i vals in the inner loops and added them to visited
       if (!visited.contains(i)) {
         queue.addLast(i);
         while (!queue.isEmpty()) {
-          System.out.println("  Queue: " + queue);
-          int node = queue.removeFirst();
-          visited.add(node);
-          for (int j = 0; j < isConnected[i].length; j++) { // j = other nodes in relation to i, [i][j] 0/1 depending on if there's an edge present
-            System.out.println("    node: " + node + ", j: " + j);
-            System.out.println("    isConnected[node][j] " + isConnected[node][j]);
-            System.out.println("    visited: " + visited);
-            if (isConnected[node][j] == 1 && !visited.contains(j)) {
-              System.out.println("    adding j (" + j + ") to queue ");
-              queue.add(j);
-            } else {
-              System.out.println("    did not add j (" + j + ") to queue ");
+          int currentNode = queue.removeFirst();
+          visited.add(currentNode);
+          // checks each edge value for all other nodes, including self
+          // each 1 reps a connection between currentNode & that index's node, so we add that
+          // child node to our queue to look at its connections later
+          // 0 means there's no connection so we skip. We'll also skip if we've already looked
+          // at this connection (i.e.checking [0][1] is same as checking [1][0], no need to look twice
+          for (int j = 0; j < isConnected[i].length; j++) {
+            if (!visited.contains(j) && isConnected[currentNode][j] == 1) {
+              queue.addLast(j);
             }
-            System.out.println("    Updated queue: " + queue);
           }
-          System.out.println("  End queue iteration---------");
         }
+        // increment count because at this point we've looked at all the connected nodes associated with whatever node
+        // we started with, which is why the queue is now empty, so the next node we look at will be the start of a
+        // new subgraph
         count++;
-        System.out.println("count: " + count);
       }
-      System.out.println("---------End outer loop iteration---------");
     }
     return count;
   }
