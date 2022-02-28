@@ -1,9 +1,12 @@
 package leetcode.graph;
 
+import shared.PracticeStatus;
+
 import java.util.*;
 
 public class NumberOfProvinces {
   String source = "https://leetcode.com/explore/learn/card/graph/618/disjoint-set/3845/ (union-find) or https://leetcode.com/problems/number-of-provinces/solution/";
+  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
 
   int findNumProvincesBFS(int[][] isConnected) {
     if (isConnected == null || isConnected.length == 0 || isConnected[0].length == 0) return 0;
