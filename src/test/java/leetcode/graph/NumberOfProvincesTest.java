@@ -14,8 +14,14 @@ public class NumberOfProvincesTest {
 
   @ParameterizedTest
   @MethodSource("testCases")
-  void testSolution(int[][] input, int expected) {
+  void testBfsSolution(int[][] input, int expected) {
     assertEquals(expected, numberOfProvinces.findNumProvincesBFS(input));
+  }
+
+  @ParameterizedTest
+  @MethodSource("testCases")
+  void testUnionFindSolution(int[][] input, int expected) {
+    assertEquals(expected, numberOfProvinces.findProvincesUnionFind(input));
   }
 
   static Stream<Arguments> testCases() {

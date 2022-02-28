@@ -39,48 +39,65 @@ public class NumberOfProvinces {
   }
 
 
-  public int findCircleNumUnionFind(int[][] isConnected) {
+  public int findProvincesUnionFind(int[][] isConnected) {
     if (isConnected == null || isConnected.length == 0 || isConnected[0].length == 0) return 0;
-    // build union-find set up
-    // initialize arr[i] = i
-    int[] rootArray = new int[isConnected[0].length - 1];
-    int[] rank = new int[isConnected[0].length - 1];
-    for (int i : rootArray) {
-      rootArray[i] = i;
-      rank[i] = 1;
+    UnionFind unionFind = new UnionFind(isConnected.length);
+    for (int i = 0; i < isConnected.length; i++) {
+      for (int j = 0; j < isConnected.length; j++) {
+        if (isConnected[i][j] == 1) {
+          if (i != j) {
+            unionFind.union(i, j);
+          }
+        }
+      }
     }
-    // traverse isConnected to generate union() calls
-    // run union(x,y) to get arr[index = node id] = val = root node
-    union(0, 1, rootArray, rank);
-    System.out.println(Arrays.toString(rootArray));
-    System.out.println(Arrays.toString(rank));
-    // get count of unique root nodes to determine how many provinces
-    return 0;
+    return unionFind.size;
 
   }
 
-  int find(int inputNode, int[] arr) {
-    int parent = arr[inputNode];
-    if (parent == inputNode) {
-      return inputNode;
-    } else {
-      arr[inputNode] = find(inputNode, arr);
-      ;
-      return arr[inputNode];
+  static class UnionFind {
+    int[] rootNodeArr;
+    int[] rank;
+    int size;
+
+    UnionFind(int size) {
+      this.rootNodeArr = new int[size];
+      this.rank = new int[size];
+      this.size = size;
+      for (int i = 0; i < size; i++) {
+        this.rootNodeArr[i] = i;
+        this.rank[i] = 1;
+      }
     }
+
+    int find(int inputNode) {
+      int parent = rootNodeArr[inputNode];
+      if (parent == inputNode) {
+        return inputNode;
+      } else {
+        this.rootNodeArr[inputNode] = find(parent);
+        return this.rootNodeArr[inputNode];
+      }
+    }
+
+    void union(int xNode, int yNode) {
+      int xRoot = find(xNode);
+      int yRoot = find(yNode);
+      if (xRoot != yRoot) {
+        if (rank[xRoot] > rank[yRoot]) {
+          this.rootNodeArr[yRoot] = xRoot;
+        } else if (rank[xRoot] < rank[yRoot]) {
+          this.rootNodeArr[xRoot] = yRoot;
+        } else {
+          this.rootNodeArr[yNode] = xRoot;
+          this.rank[xRoot]++;
+        }
+        this.size--;
+      }
+    }
+
   }
 
-  void union(int xNode, int yNode, int[] arr, int[] rank) {
-    int xRoot = find(xNode, arr);
-    int yRoot = find(yNode, arr);
-    if (rank[xRoot] > rank[yRoot]) {
-      arr[yRoot] = xRoot;
-    } else if (rank[yRoot] > rank[xRoot]) {
-      arr[xRoot] = yRoot;
-    } else {
-      rank[xNode] += 1;
-      arr[yNode] = xNode;
-    }
-  }
+
 }
 
