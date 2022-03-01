@@ -6,9 +6,9 @@ import java.util.*;
 
 public class DoesPathExist {
   String source = "https://leetcode.com/explore/learn/card/graph/620/breadth-first-search-in-graph/3894/";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(n)";
+  String spaceComplexity = "O(n)";
   /*
   * There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1 (inclusive).
   * The edges in the graph are represented as a 2D integer array edges, where each edges[i] = [ui, vi] denotes
@@ -32,41 +32,36 @@ public class DoesPathExist {
   boolean validPath(int n, int[][] edges, int source, int destination) {
     if (source == destination) return true;
     else if (edges == null || edges.length == 0 || n == 0) return false;
-    Deque<List<Integer>> queue = new ArrayDeque<>();
+    Deque<Integer> queue = new ArrayDeque<>();
     Set<Integer> visited = new HashSet<>();
-    Map<Integer, Set<Integer>> graph = new HashMap<>();
+    Map<Integer, Set<Integer>> adjMap = new HashMap<>();
     for (int i = 0; i < n; i++) {
-      graph.put(i, new HashSet<>());
+      adjMap.put(i, new HashSet<>());
     }
     for (int i = 0; i < edges.length; i++) {
       var start = edges[i][0];
       var end = edges[i][1];
-      graph.compute(start, (key, val) -> {
+      adjMap.compute(start, (key, val) -> {
         val.add(end);
         return val;
       });
-      graph.compute(end, (key, val) -> {
+      adjMap.compute(end, (key, val) -> {
         val.add(start);
         return val;
       });
     }
-      var startPath = new ArrayList<Integer>();
-      startPath.add(source);
-      queue.addLast(startPath);
-      while (!queue.isEmpty()) {
-        var currentNode = queue.removeFirst();
-        var lastNodeInPath = currentNode.get(currentNode.size() - 1);
-        if (!visited.contains(lastNodeInPath)) {
-          if (lastNodeInPath == destination) return true;
-          visited.add(lastNodeInPath);
-          var neighbors = graph.get(lastNodeInPath);
-          for (Integer neighbor : neighbors) {
-            List<Integer> listCopy = new ArrayList<>(currentNode);
-            listCopy.add(neighbor);
-            queue.addLast(listCopy);
-          }
+    queue.addLast(source);
+    while (!queue.isEmpty()) {
+      var currentNode = queue.removeFirst();
+      if (!visited.contains(currentNode)) {
+        if (currentNode == destination) return true;
+        visited.add(currentNode);
+        var neighbors = adjMap.get(currentNode);
+        for (Integer neighbor : neighbors) {
+          queue.addLast(neighbor);
         }
       }
+    }
     return false;
   }
 }
