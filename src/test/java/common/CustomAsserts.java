@@ -1,4 +1,4 @@
-package educative.codinginterviewpatterns;
+package common;
 
 import java.util.List;
 
