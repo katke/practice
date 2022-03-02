@@ -7,8 +7,8 @@ import java.util.*;
 public class DoesPathExist {
   String source = "https://leetcode.com/explore/learn/card/graph/620/breadth-first-search-in-graph/3894/";
   PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
-  String timeComplexity = "O(n)";
-  String spaceComplexity = "O(n)";
+  String timeComplexity = "O(V + E) vertices/n + num of edges";
+  String spaceComplexity = "O(V + E) vertices/n + num of edges";
   /*
   * There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1 (inclusive).
   * The edges in the graph are represented as a 2D integer array edges, where each edges[i] = [ui, vi] denotes
