@@ -1,5 +1,7 @@
 package common;
 
+import shared.commontypes.TreeNode;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
