@@ -48,7 +48,10 @@ public class Search2DMatrixTest {
         arguments(targetIsLastInt(), 150, true),
         arguments(targetIsLFirstInt(), 21, true),
         arguments(noMatch(), 66, false),
-        arguments(targetLessThanAllRows(), 9, false)
+        arguments(targetLessThanAllRows(), 9, false),
+        arguments(failedLCTestCase(), 3, true),
+        arguments(failedLCTestCaseInverse(), 1, true),
+        arguments(noMatch2(), 10, true)
     );
   }
 
@@ -118,6 +121,35 @@ public class Search2DMatrixTest {
     int[] row1 = new int[]{1, 2, 3, 4, 5, 6};
     int[] row2 = new int[]{15, 17, 20, 60, 61, 65};
     int[] row3 = new int[]{78, 79, 90, 97, 100, 102};
+    return new int[][]{
+        row1,
+        row2,
+        row3
+    };
+  }
+
+  private static int[][] failedLCTestCase() {
+    int[] row1 = new int[]{1};
+    int[] row2 = new int[]{3};
+    return new int[][]{
+        row1,
+        row2
+    };
+  }
+
+  private static int[][] failedLCTestCaseInverse() {
+    int[] row1 = new int[]{1};
+    int[] row2 = new int[]{3};
+    return new int[][]{
+        row1,
+        row2
+    };
+  }
+
+  private static int[][] noMatch2() {
+    int[] row1 = new int[]{1, 3, 5, 7};
+    int[] row2 = new int[]{10, 11, 16, 20};
+    int[] row3 = new int[]{23, 30, 34, 50};
     return new int[][]{
         row1,
         row2,

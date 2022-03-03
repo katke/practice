@@ -29,7 +29,7 @@ public class DoesPathExist {
     There are no self edges.
   * */
 
-  boolean validPath(int n, int[][] edges, int source, int destination) {
+  boolean validPathBFS(int n, int[][] edges, int source, int destination) {
     if (source == destination) return true;
     else if (edges == null || edges.length == 0 || n == 0) return false;
     Deque<Integer> queue = new ArrayDeque<>();
@@ -63,5 +63,9 @@ public class DoesPathExist {
       }
     }
     return false;
+  }
+
+  boolean validPathDFS(int n, int[][] edges, int source, int destination) {
+
   }
 }

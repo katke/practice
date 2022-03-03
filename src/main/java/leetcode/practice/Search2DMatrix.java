@@ -8,7 +8,7 @@ import java.util.Arrays;
 // Runtime complexity: O(m * n logn)
 // Space complexity: n logn
 public class Search2DMatrix implements PracticeProblem {
-  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
   String source = "https://leetcode.com/problems/search-a-2d-matrix/";
 
   // Time Complexity: O(n * m), where n = num rows, and m = num of columns
@@ -60,21 +60,24 @@ public class Search2DMatrix implements PracticeProblem {
 
   // Time complexity: O(log(n*m)), binary search both col and rows
   // Space complexity: O(logm + logn)
+  // TODO under construction
   boolean mostOptimizedSolution(int[][] matrix, int target) {
-    if (matrix == null || matrix.length == 0) return false;
+    if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return false;
     var relevantRow = matrixBinarySearch(matrix, target);
     return binarySearch(relevantRow, target);
   }
-
 
   private int[] matrixBinarySearch(int[][] arr, int target) {
     if (arr.length == 1) {
       return arr[0];
     }
+
     var midpoint = arr.length / 2;
     var midpointArr = arr[midpoint];
-    if (target > midpointArr[midpointArr.length - 1]) {
-        return matrixBinarySearch(Arrays.copyOfRange(arr, midpoint + 1, arr.length), target);
+    if (target == midpointArr[midpointArr.length - 1]) {
+      return midpointArr;
+    } else if (target > midpointArr[midpointArr.length - 1]) {
+        return matrixBinarySearch(Arrays.copyOfRange(arr, midpoint, arr.length), target);
     } else {
       return matrixBinarySearch(Arrays.copyOfRange(arr, 0, midpoint), target);
     }

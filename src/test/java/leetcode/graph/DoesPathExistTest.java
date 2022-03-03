@@ -12,10 +12,16 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 public class DoesPathExistTest {
   DoesPathExist doesPathExist = new DoesPathExist();
 
-  @ParameterizedTest
+  @ParameterizedTest(name = "BFS {index}")
   @MethodSource("testCases")
-  void testSolution(int n, int[][] edges, int source, int destination, boolean expected) {
-    assertEquals(expected, doesPathExist.validPath(n, edges, source, destination));
+  void testBFSSolution(int n, int[][] edges, int source, int destination, boolean expected) {
+    assertEquals(expected, doesPathExist.validPathBFS(n, edges, source, destination));
+  }
+
+  @ParameterizedTest(name = "DFS {index}")
+  @MethodSource("testCases")
+  void testDFSSolution(int n, int[][] edges, int source, int destination, boolean expected) {
+    assertEquals(expected, doesPathExist.validPathDFS(n, edges, source, destination));
   }
 
   static Stream<Arguments> testCases() {

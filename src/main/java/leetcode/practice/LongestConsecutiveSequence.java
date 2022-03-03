@@ -1,10 +1,8 @@
 package leetcode.practice;
 
 import shared.PracticeStatus;
-import shared.Topics;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class LongestConsecutiveSequence {
@@ -12,7 +10,6 @@ public class LongestConsecutiveSequence {
   PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
   String timeComplexity = "O(n)"; // hashset.contains(x) is O(1) time complexity
   String spaceComplexity = "O(n)";
-  List<Topics> topics = List.of(Topics.GRAPH);
   /*
   *
   * Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
