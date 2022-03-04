@@ -34,22 +34,7 @@ public class DoesPathExist {
     else if (edges == null || edges.length == 0 || n == 0) return false;
     Deque<Integer> queue = new ArrayDeque<>();
     Set<Integer> visited = new HashSet<>();
-    Map<Integer, Set<Integer>> adjMap = new HashMap<>();
-    for (int i = 0; i < n; i++) {
-      adjMap.put(i, new HashSet<>());
-    }
-    for (int i = 0; i < edges.length; i++) {
-      var start = edges[i][0];
-      var end = edges[i][1];
-      adjMap.compute(start, (key, val) -> {
-        val.add(end);
-        return val;
-      });
-      adjMap.compute(end, (key, val) -> {
-        val.add(start);
-        return val;
-      });
-    }
+    Map<Integer, Set<Integer>> adjMap = buildAdjMap(n, edges);
     queue.addLast(source);
     while (!queue.isEmpty()) {
       var currentNode = queue.removeFirst();
@@ -65,7 +50,36 @@ public class DoesPathExist {
     return false;
   }
 
-  boolean validPathDFS(int n, int[][] edges, int source, int destination) {
+  Map<Integer, Set<Integer>> buildAdjMap(int n, int[][] edges) {
+    Map<Integer, Set<Integer>> adjMap = new HashMap<>();
+    for (int i = 0; i < n; i++) {
+      adjMap.put(i, new HashSet<>());
+    }
+    for (int i = 0; i < edges.length; i++) {
+      var start = edges[i][0];
+      var end = edges[i][1];
+      adjMap.get(start).add(end);
+      adjMap.get(end).add(start);
+    }
+    return adjMap;
+  }
 
+  boolean validPathDFS(int n, int[][] edges, int source, int destination) {
+    if (source == destination) return true;
+    else if (edges == null || n == 0) return false;
+    Set<Integer> visited = new HashSet<>();
+    Map<Integer, Set<Integer>> adjMap = buildAdjMap(n, edges);
+    return checkForPath(visited, adjMap, source, destination);
+  }
+
+  boolean checkForPath(Set<Integer> visited, Map<Integer, Set<Integer>> edges, int current, int destination) {
+    if (current == destination) return true;
+    else if (visited.contains(current)) return false;
+    visited.add(current);
+    for (int neighbor : edges.get(current)) {
+      var hasPath = checkForPath(visited, edges, neighbor, destination);
+      if (hasPath) return true;
+    }
+    return false;
   }
 }
