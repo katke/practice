@@ -14,10 +14,16 @@ public class AllPathsSourceToTargetTest {
   AllPathsSourceToTarget allPathsSourceToTarget = new AllPathsSourceToTarget();
   CustomAsserts customAsserts = new CustomAsserts();
 
-  @ParameterizedTest
+  @ParameterizedTest(name = "BFS {index}")
   @MethodSource("testCases")
-  void testBfsSolution(int[][] graph, List<List<Integer>> expected) {
+  void testBFSSolution(int[][] graph, List<List<Integer>> expected) {
     customAsserts.assertListEquals(expected, allPathsSourceToTarget.allPathsSourceTargetBfs(graph));
+  }
+
+  @ParameterizedTest(name = "DFS {index}")
+  @MethodSource("testCases")
+  void testDFSSolution(int[][] graph, List<List<Integer>> expected) {
+    customAsserts.assertListEquals(expected, allPathsSourceToTarget.allPathsSourceTargetDFS(graph));
   }
 
   static Stream<Arguments> testCases() {

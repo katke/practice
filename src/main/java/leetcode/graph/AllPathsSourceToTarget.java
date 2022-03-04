@@ -8,7 +8,7 @@ public class AllPathsSourceToTarget {
   String source = "https://leetcode.com/explore/learn/card/graph/620/breadth-first-search-in-graph/3853/";
   PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
   String timeComplexity = "O(2^V * V)";
-  String spaceComplexity = "O(2^V * V)";
+  String spaceComplexity = "BFS: O(2^V * V), DFS: O(V)";
 
   /*
   * Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths from
@@ -24,6 +24,26 @@ public class AllPathsSourceToTarget {
     All the elements of graph[i] are unique.
     The input graph is guaranteed to be a DAG.
   * */
+
+  List<List<Integer>> allPathsSourceTargetDFS(int[][] graph) {
+    if (graph == null || graph.length == 0 || graph[0].length == 0) return List.of();
+    List<List<Integer>> allPathsResult = new ArrayList<>();
+    findPath(graph, allPathsResult, new ArrayList<>(), 0);
+    return allPathsResult;
+  }
+
+  void findPath(int[][] graph, List<List<Integer>> result, List<Integer> currentPath, int currentNode) {
+    currentPath.add(currentNode);
+    if (currentNode == graph.length - 1) {
+      result.add(currentPath);
+      return;
+    }
+    if (graph[currentNode].length == 0) return;
+    for (int neighbor : graph[currentNode]) {
+      var currentPathCopy = new ArrayList<Integer>(currentPath);
+      findPath(graph, result, currentPathCopy, neighbor);
+    }
+  }
 
   List<List<Integer>> allPathsSourceTargetBfs(int[][] graph) {
     if (graph == null || graph.length == 0 || graph[0].length == 0) return List.of();
