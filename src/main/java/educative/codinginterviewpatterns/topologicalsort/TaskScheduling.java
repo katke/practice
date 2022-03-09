@@ -6,9 +6,9 @@ import java.util.*;
 
 public class TaskScheduling {
   String source = "https://www.educative.io/courses/grokking-the-coding-interview/gxJrM9goEMr";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(V+E)";
+  String spaceComplexity = "O(V+E)";
   /*
   * There are ‘N’ tasks, labeled from ‘0’ to ‘N-1’. Each task can have some prerequisite tasks which
   * need to be completed before it can be scheduled. Given the number of tasks and a list of prerequisite
@@ -32,12 +32,12 @@ public class TaskScheduling {
       if (!incomingEdges.containsKey(i)) sourceQueue.addLast(i);
     }
     if (sourceQueue.isEmpty()) return false;
-    Set<Integer> visited = new HashSet<>();
+    List<Integer> currentPath = new ArrayList<>();
     while (!sourceQueue.isEmpty()) {
       int current = sourceQueue.removeFirst();
-      if (visited.contains(current)) return false;
-      visited.add(current);
-      for (int child : adjList.getOrDefault(current, new HashSet<>())) {
+      currentPath.add(current);
+      var children = adjList.getOrDefault(current, new HashSet<>());
+      for (int child : children) {
         if (child == current) return false;
         incomingEdges.put(child, incomingEdges.getOrDefault(child, 1) - 1);
         if (incomingEdges.get(child) == 0) {
@@ -45,6 +45,6 @@ public class TaskScheduling {
         }
       }
     }
-    return true;
+    return currentPath.size() == tasks;
   }
 }

@@ -7,7 +7,7 @@ import java.util.*;
 public class CourseSchedule {
   String source = "https://leetcode.com/problems/course-schedule/";
   PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
+  String timeComplexity = "O(V + E)";
   String spaceComplexity = "";
 
 /*
@@ -35,12 +35,29 @@ To take course 1 you should have finished course 0. So it is possible.
   boolean canFinish(int numCourses, int[][] prerequisites) {
     if (numCourses < 1 || prerequisites == null || prerequisites.length == 0) return true;
     Map<Integer, Set<Integer>> courses = buildAdjMap(numCourses, prerequisites);
-    for (int course : courses.keySet()) {
-      if (!isCyclic(course, courses, new HashSet<>())) {
-        return true;
+    System.out.println(courses);
+    Map<Integer, Integer> incomingEdges = buildIncomingEdges(numCourses, prerequisites);
+    System.out.println(incomingEdges);
+    Deque<Integer> sourcesQueue = new ArrayDeque<>();
+    for (var entry : incomingEdges.entrySet()) {
+      if (entry.getValue() == 0) sourcesQueue.addLast(entry.getKey());
+    }
+    if (sourcesQueue.isEmpty()) return false;
+    List<Integer> sortedPath = new ArrayList<>();
+    while (!sourcesQueue.isEmpty()) {
+      System.out.println("queue: " + sourcesQueue);
+      int current = sourcesQueue.removeFirst();
+      sortedPath.add(current);
+      System.out.println("sortedPath: " + sortedPath);
+      var children = courses.get(current);
+      for (int child : children) {
+        System.out.println("child: " + child);
+        incomingEdges.put(child, incomingEdges.get(child) - 1);
+        System.out.println(incomingEdges);
+        if (incomingEdges.get(child) == 0) sourcesQueue.addLast(child);
       }
     }
-    return false;
+    return sortedPath.size() == numCourses;
   }
 
   private Map<Integer, Set<Integer>> buildAdjMap(int numCourses, int[][] prereqs) {
@@ -55,6 +72,29 @@ To take course 1 you should have finished course 0. So it is possible.
     }
     return courses;
   }
+
+  private Map<Integer, Integer> buildIncomingEdges(int numCourses, int[][] prereqs) {
+    Map<Integer, Integer> courses = new HashMap<>();
+    for (int i = 0; i < numCourses; i++) {
+      courses.put(i, 0);
+    }
+    for (int[] prereq : prereqs) {
+      int prereqId = prereq[1];
+      courses.put(prereqId, courses.get(prereqId) + 1);
+    }
+    return courses;
+  }
+
+  //  boolean canFinish(int numCourses, int[][] prerequisites) {
+//    if (numCourses < 1 || prerequisites == null || prerequisites.length == 0) return true;
+//    Map<Integer, Set<Integer>> courses = buildAdjMap(numCourses, prerequisites);
+//    for (int course : courses.keySet()) {
+//      if (!isCyclic(course, courses, new HashSet<>())) {
+//        return true;
+//      }
+//    }
+//    return false;
+//  }
 
   protected boolean isCyclic(Integer currCourse, Map<Integer, Set<Integer>> courseDict, Set<Integer> visited) {
 
