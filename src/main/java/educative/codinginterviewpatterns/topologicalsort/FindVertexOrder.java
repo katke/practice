@@ -19,9 +19,11 @@ public class FindVertexOrder {
     Map<Integer, Integer> incomingEdgeCount = createEdgeCountMap(edges, vertices);
     System.out.println("adjList: " + adjList);
     System.out.println("incomingEdgeCount: " + incomingEdgeCount);
+    // Vertices will only be added to the queue if they are source nodes (i.e. have no incoming edges at all or,
+    // or have no incoming edges left that haven't already been processed previously
     Deque<Integer> queue = new ArrayDeque<>();
     for (Map.Entry<Integer, Integer> entry : incomingEdgeCount.entrySet()) {
-      if (entry.getValue() == 0) queue.addLast(entry.getKey());
+      if (entry.getValue() == 0) queue.addLast(entry.getKey()); // true source nodes
     }
     List<Integer> path = new ArrayList<>();
     // constraints say we can assume there will be a source and sink node
@@ -35,7 +37,7 @@ public class FindVertexOrder {
         // we just processed the parent of this child, so we can decrement the number of incoming edges for this child
         incomingEdgeCount.compute(child, (key, val) -> val == null ? 0 : val - 1);
         System.out.println("incomingEdgeCount: " + incomingEdgeCount);
-        // if the incoming edge count is zero, then it's essentially a source node now, add to queue
+        // if the incoming edge count is zero, then it's a psuedo source node, add to queue
         if (incomingEdgeCount.get(child) == 0) queue.addLast(child);
       }
     }
