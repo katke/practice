@@ -6,9 +6,9 @@ import java.util.*;
 
 public class CourseSchedule2 {
   String source = "https://leetcode.com/problems/course-schedule-ii/";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(V + E)";
+  String spaceComplexity = "O(V + E)";
 
   /*
   * There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1.
@@ -30,56 +30,39 @@ public class CourseSchedule2 {
   * */
 
   int[] solution(int numCourses, int[][] prerequisites) {
-    if (prerequisites == null || prerequisites.length == 0) return new int[]{};
+    if (numCourses == 0 || prerequisites == null) return new int[]{};
     Map<Integer, List<Integer>> courses = new HashMap<>();
-    List<List<Integer>> result = new ArrayList<>();
+    Map<Integer, Integer> incomingEdgeCount = new HashMap<>();
+    Deque<Integer> sourceQueue = new ArrayDeque<>();
+    int[] result = new int[numCourses];
+    int coursesScheduled = 0;
+    for (int i = 0; i < numCourses; i++) {
+      incomingEdgeCount.put(i, 0);
+      courses.put(i, new ArrayList<>());
+    }
     for (int[] pair : prerequisites) {
-      int courseId = pair[0];
+      int course = pair[0];
       int prereq = pair[1];
-      List<Integer> currentPrereqs = courses.getOrDefault(courseId, new ArrayList<>());
-      currentPrereqs.add(prereq);
-      courses.put(courseId, currentPrereqs);
+      List<Integer> currentPrereqs = courses.get(prereq);
+      currentPrereqs.add(course);
+      courses.put(prereq, currentPrereqs);
+      incomingEdgeCount.put(course, incomingEdgeCount.get(course) + 1);
     }
-    System.out.println(courses);
-    findCourseProgression(new ArrayList<>(), result, prerequisites[0][0], courses, new ArrayList<>(), numCourses);
-    return result.isEmpty()
-      ? new int[]{}
-      : result.get(0).stream().mapToInt(Integer::intValue).toArray();
-  }
-
-  void findCourseProgression(List<Integer> courseOrder, List<List<Integer>> results, int courseId,
-                             Map<Integer, List<Integer>> courses, List<Integer> alreadySeen, int numCourses) {
-    System.out.println("-".repeat(15));
-    // if next progression is null (end of prereq chain) or equal to numCourses + 1 (checked all possible courses)
-    // add to result (along with any unaccounted for classes) and return
-    // if the node is present in alreadyVisited (is a cycle), don't add to result and return
-    // else loop through the prereqs and start new findCourseProgression call for each
-    // add to alreadyVisited list
-    System.out.println("findCourseProgression(): courseId " + courseId);
-    System.out.println("alreadySeen: " + alreadySeen);
-    if (!courses.containsKey(courseId)) {
-      courseOrder.add(0, courseId);
-      if (courseOrder.size() < numCourses) {
-        for (int i = 0; i < numCourses; i++) {
-          if (!courseOrder.contains(i)) {
-            courseOrder.add(i);
-          }
-        }
-        System.out.println("courseOrder: " + courseOrder);
-        results.add(courseOrder);
-      }
-    } else if (alreadySeen.contains(courseId)) {
-      // found a cycle
-      System.out.println("cycle—courseOrder: " + courseOrder);
-      return;
-    } else {
-      alreadySeen.add(courseId);
-      System.out.println("courseOrder: " + courseOrder);
-      for (Integer prereq : courses.get(courseId)) {
-        findCourseProgression(
-            new ArrayList<>(courseOrder),
-            results, prereq, courses, alreadySeen, numCourses);
+    for (var entry : incomingEdgeCount.entrySet()) {
+      // source nodes here are the courses that have no prerequisites, i.e. no incoming edges
+      if (entry.getValue() == 0) sourceQueue.addLast(entry.getKey());
+    }
+    if (sourceQueue.isEmpty()) return new int[]{}; // there's a circular dependency somewhere since there's no source nodes
+    while (!sourceQueue.isEmpty()) {
+      int current = sourceQueue.removeFirst();
+      result[coursesScheduled] = current;
+      coursesScheduled++;
+      var children = courses.get(current);
+      for (int child : children) {
+        incomingEdgeCount.compute(child, (key, val) -> val == null ? 0 : val - 1);
+        if (incomingEdgeCount.get(child) == 0) sourceQueue.addLast(child);
       }
     }
+    return coursesScheduled == numCourses ? result : new int[]{};
   }
 }
