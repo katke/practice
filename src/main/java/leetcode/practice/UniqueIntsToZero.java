@@ -4,9 +4,9 @@ import shared.PracticeStatus;
 
 public class UniqueIntsToZero {
   String source = "https://leetcode.com/problems/find-n-unique-integers-sum-up-to-zero/";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(n / 2)";
+  String spaceComplexity = "O(n)";
   /*
    * Given an integer n, return any array containing n unique integers such that they add up to 0.
    * */
