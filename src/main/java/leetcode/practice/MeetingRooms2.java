@@ -5,12 +5,13 @@ import shared.PracticeStatus;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class MeetingRooms2 {
   String source = "https://leetcode.com/problems/meeting-rooms-ii/";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(N log(N))";
+  String spaceComplexity = "O(N)";
   /*
   * Given an array of meeting time intervals intervals where intervals[i] = [starti, endi],
   * return the minimum number of conference rooms required.
@@ -20,23 +21,23 @@ public class MeetingRooms2 {
     if (intervals == null) return 0;
     else if (intervals.length < 2) return intervals.length;
     List<Meeting> meetingTimes = new ArrayList<>();
+    PriorityQueue<Room> confRoomsMinHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a.freeAsOf));
     for (int[] interval : intervals) {
       meetingTimes.add(new Meeting(interval[0], interval[1]));
     }
     meetingTimes.sort(Comparator.comparingInt(meetingA -> meetingA.start));
-    List<Room> conferenceRooms = new ArrayList<>();
     for (Meeting nextMeeting : meetingTimes) {
-      var availableConfRoom = conferenceRooms
-          .stream()
-          .filter(room -> room.freeAsOf <= nextMeeting.start)
-          .findFirst();
-      if (availableConfRoom.isEmpty()) {
-        conferenceRooms.add(new Room(nextMeeting));
+      var existingConfRoomAvail = confRoomsMinHeap.peek() != null
+          && confRoomsMinHeap.peek().freeAsOf <= nextMeeting.start;
+      if (!existingConfRoomAvail) {
+        confRoomsMinHeap.add(new Room(nextMeeting));
       } else {
-        availableConfRoom.get().scheduleMeeting(nextMeeting);
+        var availRoom = confRoomsMinHeap.poll();
+        availRoom.scheduleMeeting(nextMeeting);
+        confRoomsMinHeap.add(availRoom);
       }
     }
-    return conferenceRooms.size();
+    return confRoomsMinHeap.size();
   }
 
   static class Meeting {
