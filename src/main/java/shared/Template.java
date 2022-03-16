@@ -8,8 +8,8 @@ public class Template {
   String timeComplexity = "";
   String spaceComplexity = "";
   /*
-  *
-  * */
+
+*/
 
   int solution(int input) {
     return 0;
