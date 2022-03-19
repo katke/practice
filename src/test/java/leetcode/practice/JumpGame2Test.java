@@ -18,11 +18,11 @@ public class JumpGame2Test {
       assertEquals(expected, clazz.solution(input));
     }
 
-  @ParameterizedTest
-  @MethodSource("testcases")
-  void testBFSIterativeSolution(int[] input, int expected) {
-    assertEquals(expected, clazz.bfsIterativeSolution(input));
-  }
+//  @ParameterizedTest
+//  @MethodSource("testcases")
+//  void testBFSIterativeSolution(int[] input, int expected) {
+//    assertEquals(expected, clazz.bfsIterativeSolution(input));
+//  }
 
   @ParameterizedTest
   @MethodSource("testcases")
