@@ -3,6 +3,9 @@ package leetcode.practice;
 import shared.PracticeStatus;
 import shared.commontypes.TreeNode;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ValidBinarySearchTree {
   String source = "https://leetcode.com/explore/learn/card/recursion-ii/470/divide-and-conquer/2874/";
   PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
@@ -20,6 +23,13 @@ Both the left and right subtrees must also be binary search trees.
 */
 
   boolean solution(TreeNode root) {
+    var arr = new ArrayList<Integer>();
+    arr.remove((Integer) 0);
+    int listSize = arr.size() - 1;
+    arr.remove(listSize - 1);
+    var map = new HashMap<Integer,Integer>();
+
+
     return isSubtreeValid(root, null, null);
   }
 
