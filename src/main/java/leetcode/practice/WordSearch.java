@@ -50,10 +50,10 @@ board and word consists of only lowercase and uppercase English letters.
     var foundIt = false;
     // Generate list of all possible next positions
     var nextCoordinates = List.of(
-        List.of(row - 1, col), //up
-        List.of(row + 1, col), //down
-        List.of(row, col - 1), //left
-        List.of(row, col + 1) //right
+        List.of(row - 1, col), // up
+        List.of(row + 1, col), // down
+        List.of(row, col - 1), // left
+        List.of(row, col + 1) // right
     );
     // make a dfs/recursive call to the four next possible positions to check for
     // the next letter in our word

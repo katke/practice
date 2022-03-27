@@ -4,9 +4,9 @@ import shared.PracticeStatus;
 
 public class BestTimeToBuySellStock {
   String source = "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(N)";
+  String spaceComplexity = "O(1)";
   /*
 You are given an array prices where prices[i] is the price of a given stock on the ith day.
 
