@@ -6,7 +6,7 @@ import java.util.*;
 
 public class WordSearch {
   String source = "https://leetcode.com/problems/word-search/";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
   String timeComplexity = "";
   String spaceComplexity = "";
   /*
@@ -23,6 +23,53 @@ board and word consists of only lowercase and uppercase English letters.
 */
 
   boolean solution(char[][] board, String word) {
+    if (board == null || board.length == 0 || board[0].length == 0) return false;
+    if (word.length() == 0) return true;
+    var result = false;
+    // each position on the board with our first letter is a possible starting point, so we need to check each
+    for (int r = 0; r < board.length; r++) {
+      for (int c = 0; c < board[0].length; c++) {
+        result = checkNextLetter(board, word, 0, List.of(r,c));
+        if (result) return true;
+      }
+    }
+    return false;
+  }
+
+  boolean checkNextLetter(char[][] board, String word, int wordIdx, List<Integer> currPos) {
+    if (word.length() == wordIdx) return true;
+    int row = currPos.get(0), col = currPos.get(1);
+    // Check if we've gone beyond the bounds of the word search grid, and if not,
+    // check if the character at these new coordinates matches the next letter in the word
+    // if not, return false because this particular path has gone cold
+    if (row >= board.length || row < 0 || col >= board[0].length || col < 0 ||
+        board[row][col] != word.charAt(wordIdx)) return false;
+    // mark this coordinate something non-alphabetic so show we've already checked it so we
+    // don't accidentally count it twice in future paths
+    board[row][col] = '1';
+    var foundIt = false;
+    // Generate list of all possible next positions
+    var nextCoordinates = List.of(
+        List.of(row - 1, col), //up
+        List.of(row + 1, col), //down
+        List.of(row, col - 1), //left
+        List.of(row, col + 1) //right
+    );
+    // make a dfs/recursive call to the four next possible positions to check for
+    // the next letter in our word
+    for (var position : nextCoordinates) {
+      foundIt = checkNextLetter(board, word, wordIdx + 1, position);
+      if (foundIt) {
+        return true;
+      }
+    }
+    // we didn't find a successful path at any point, revert our character back to its original
+    // value so we can keep searching elsewhere in the board
+    board[row][col] = word.charAt(wordIdx);
+    return false;
+  }
+
+  boolean oldSolution(char[][] board, String word) {
     System.out.println("looking for word: " + word);
     if (board == null || board.length == 0 || board[0].length == 0) return false;
     if (word.length() == 0) return true;
@@ -30,14 +77,14 @@ board and word consists of only lowercase and uppercase English letters.
     var result = false;
     for (int r = 0; r < board.length; r++) {
       for (int c = 0; c < board[0].length; c++) {
-        result = checkNextLetter(board, word, 0, List.of(r,c), adj, new HashSet<>());
+        result = oldCheckNextLetter(board, word, 0, List.of(r,c), adj, new HashSet<>());
         if (result) return true;
       }
     }
     return false;
   }
 
-  boolean checkNextLetter(char[][] board, String word, int wordIdx, List<Integer> charPos, Map<List<Integer>, List<List<Integer>>> adj, Set<List<Integer>> visited) {
+  boolean oldCheckNextLetter(char[][] board, String word, int wordIdx, List<Integer> charPos, Map<List<Integer>, List<List<Integer>>> adj, Set<List<Integer>> visited) {
     System.out.println("-".repeat(10));
     System.out.println("remainingWord: " + word.substring(wordIdx));
     System.out.println("coordinates: " + charPos);
@@ -49,7 +96,7 @@ board and word consists of only lowercase and uppercase English letters.
     System.out.println("current word index: " + wordIdx);
     var neighbors = adj.getOrDefault(charPos, new ArrayList<>());
     for (var neighbor : neighbors) {
-      foundIt = checkNextLetter(board, word, wordIdx + 1, neighbor, adj, visited);
+      foundIt = oldCheckNextLetter(board, word, wordIdx + 1, neighbor, adj, visited);
       if (foundIt) {
         return true;
       }
