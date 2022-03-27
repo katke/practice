@@ -5,9 +5,9 @@ import shared.commontypes.TreeNode;
 
 public class InvertBinaryTree {
   String source = "https://leetcode.com/problems/invert-binary-tree/";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(N)";
+  String spaceComplexity = "O(H)";
   /*
 Given the root of a binary tree, invert the tree, and return its root.
 */
