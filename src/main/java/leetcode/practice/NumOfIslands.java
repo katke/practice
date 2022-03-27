@@ -1,15 +1,14 @@
 package leetcode.practice;
 
-import lombok.val;
 import shared.PracticeStatus;
 
 import java.util.Arrays;
 
 public class NumOfIslands {
-  String source = "";
-  PracticeStatus practiceStatus = PracticeStatus.IN_PROGRESS;
-  String timeComplexity = "";
-  String spaceComplexity = "";
+  String source = "https://leetcode.com/problems/number-of-islands/";
+  PracticeStatus practiceStatus = PracticeStatus.ACCEPTED;
+  String timeComplexity = "O(m*n)";
+  String spaceComplexity = "O(m * n)";
   /*
 Given an m x n 2D binary grid which represents a map of '1's (land) and '0's (water), return the number
 of islands.
