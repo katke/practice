@@ -38,7 +38,6 @@ Given ‘M’ sorted arrays, find the K’th smallest number among all the array
     }
     return maxHeap.peek().val;
   }
-
   static class Node {
     int col;
     int row;
@@ -49,4 +48,5 @@ Given ‘M’ sorted arrays, find the K’th smallest number among all the array
       this.row = row;
       this.col = col;
     }
+  }
 }
