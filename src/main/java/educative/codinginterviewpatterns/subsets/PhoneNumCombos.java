@@ -24,7 +24,7 @@ public class PhoneNumCombos {
   );
 
   public List<String> solution(String digits) {
-    if (digits == null || digits.length() == 0) return List.of();
+    if (digits == null || digits.isEmpty()) return List.of();
     List<String> result = new ArrayList<>();
     // queue will store each of the interim combinations while we are still building them
     Deque<String> queue = new ArrayDeque<>();
